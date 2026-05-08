@@ -471,6 +471,19 @@
   <div class="tip">
     <p><strong>If anything breaks:</strong> Copy the error message, paste it into Claude, ask what to do. It'll walk you through the fix. This is the pattern for everything.</p>
   </div>
+
+  <h3>Common Windows Gotchas</h3>
+
+  <p><strong>Gotcha 1 — "running scripts is disabled on this system"</strong><br/>
+  Windows blocks scripts by default. Fix it by pasting this into PowerShell and hitting Enter:</p>
+  <div class="code-block">Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</div>
+  <p>Type <code>Y</code> when it asks to confirm. Then run the npm install command again.</p>
+
+  <p><strong>Gotcha 2 — Long dash error (node —version)</strong><br/>
+  If you copy a command and get a weird error about a missing module, autocorrect probably turned <code>--</code> into a long dash (—). Always <strong>type commands manually</strong> rather than copying from a document. Use the minus key on your keyboard for hyphens.</p>
+
+  <p><strong>Gotcha 3 — Close and reopen Terminal after installing Node</strong><br/>
+  If npm isn't recognized right after installing Node.js, close PowerShell completely and open a fresh one. The install doesn't take effect until you start a new window.</p>
 </div>
 
 <!-- STEP 2 -->
