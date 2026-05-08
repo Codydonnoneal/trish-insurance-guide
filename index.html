@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Setup Guide for Trish's Insurance Practice</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e8e8e8;
+      line-height: 1.7;
+    }
+
+    .top-bar {
+      background: #1a1a1a;
+      border-bottom: 1px solid #2a2a2a;
+      padding: 14px 24px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      text-align: center;
+    }
+
+    .top-bar span {
+      color: #c8a96e;
+      font-weight: 600;
+    }
+
+    .hero {
+      max-width: 720px;
+      margin: 72px auto 0;
+      padding: 0 24px;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #f0f0f0;
+      margin-bottom: 20px;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: #aaa;
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+
+    .callout {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-left: 3px solid #c8a96e;
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+
+    .callout-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .callout p {
+      color: #ccc;
+      font-size: 15px;
+    }
+
+    .section {
+      max-width: 720px;
+      margin: 64px auto 0;
+      padding: 0 24px;
+    }
+
+    .toc {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-bottom: 8px;
+    }
+
+    .toc-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #888;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .toc ol {
+      padding-left: 20px;
+    }
+
+    .toc li {
+      color: #bbb;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .step {
+      max-width: 720px;
+      margin: 72px auto 0;
+      padding: 0 24px;
+    }
+
+    .step-number {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #f0f0f0;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e0e0e0;
+      margin: 32px 0 12px;
+    }
+
+    p {
+      color: #bbb;
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      color: #bbb;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .prompt-block {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin: 20px 0;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 13.5px;
+      color: #d4c5a0;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .code-block {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 13px;
+      color: #a8d8a0;
+    }
+
+    .tip {
+      background: #141f14;
+      border: 1px solid #1e3a1e;
+      border-left: 3px solid #4a9a4a;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+
+    .tip p {
+      color: #9acc9a;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .tip strong {
+      color: #b8e8b8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    th {
+      background: #1a1a1a;
+      color: #888;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #1e1e1e;
+      color: #bbb;
+      vertical-align: top;
+    }
+
+    td:first-child {
+      color: #e0e0e0;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .divider {
+      max-width: 720px;
+      margin: 64px auto 0;
+      padding: 0 24px;
+      border: none;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .prompts-section {
+      max-width: 720px;
+      margin: 72px auto 0;
+      padding: 0 24px;
+    }
+
+    .prompt-category {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #888;
+      font-weight: 600;
+      margin: 36px 0 16px;
+    }
+
+    .roadmap {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .roadmap-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 1fr;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .roadmap-row:last-child {
+      border-bottom: none;
+    }
+
+    .roadmap-cell {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: #bbb;
+      border-right: 1px solid #1e1e1e;
+    }
+
+    .roadmap-cell:last-child {
+      border-right: none;
+    }
+
+    .roadmap-cell.header {
+      background: #111;
+      color: #888;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .roadmap-cell.timeline {
+      color: #c8a96e;
+      font-weight: 600;
+    }
+
+    footer {
+      max-width: 720px;
+      margin: 80px auto 0;
+      padding: 32px 24px 64px;
+      border-top: 1px solid #1e1e1e;
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #c8a96e;
+    }
+
+    @media (max-width: 600px) {
+      .roadmap-row { grid-template-columns: 1fr; }
+      .roadmap-cell { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <span>ENTREPRENEUR AWAKEN</span> &nbsp;·&nbsp; BUILT FOR TRISH
+  </div>
+
+  <div class="hero">
+    <div class="hero-label">Claude Code for Insurance Agents</div>
+    <h1>Your AI Setup Guide</h1>
+    <p class="hero-sub">A hands-on setup guide. By the end you'll have an AI assistant that drafts client outreach, manages your sales pipeline, handles follow-ups, and builds the systems your practice needs — just by telling it what you want.</p>
+
+    <div class="callout">
+      <div class="callout-label">Read This First</div>
+      <p>Claude Code is different from a regular AI chat. It runs on your computer and can read and write files, connect to your tools, and build systems for you. You don't need to know how to code. You talk to it like a smart assistant and it builds.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Quick Win — Do This Before You Start</div>
+      <p>You're on Windows. Press <strong>Win + H</strong> anywhere on your computer to activate voice typing — including inside Claude Code. Use this constantly. Most of what you'll do with Claude is faster by voice.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="toc">
+      <div class="toc-label">What You'll Do</div>
+      <ol>
+        <li>Install Claude Code</li>
+        <li>Set up your CLAUDE.md</li>
+        <li>Build your knowledge vault (Obsidian)</li>
+        <li>Connect Google Workspace (Gmail, Calendar, Drive)</li>
+        <li>Connect your other tools (Calendly, Zoom, Todoist)</li>
+        <li>Build your AI sales engine</li>
+        <li>Build your policy and renewal tracker</li>
+        <li>The real skill — telling Claude what you want</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number">Step 1</div>
+    <h2>Install Claude Code</h2>
+    <p>This is the only step that uses a terminal window. After this, you live in the desktop app.</p>
+
+    <h3>Install Node.js</h3>
+    <p>Go to <strong>nodejs.org</strong>, click the big green Download button (LTS version), run the installer, and click through the defaults.</p>
+
+    <h3>Open Windows Terminal (or PowerShell)</h3>
+    <p>Press the <strong>Windows key</strong>, type <code>Terminal</code> or <code>PowerShell</code>, and open it.</p>
+
+    <h3>Install Claude Code</h3>
+    <div class="code-block">npm install -g @anthropic-ai/claude-code</div>
+
+    <h3>Launch it</h3>
+    <div class="code-block">claude</div>
+    <p>Sign in with your Anthropic account. From here on, you stay in the app.</p>
+
+    <div class="tip">
+      <p><strong>If anything breaks:</strong> Copy the error message, paste it into Claude, and ask what to do. It'll diagnose and walk you through the fix. This is the pattern for everything from here on.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number">Step 2</div>
+    <h2>Set Up Your CLAUDE.md</h2>
+    <p>CLAUDE.md is the master instruction file Claude reads before every conversation. Think of it as the briefing document for your AI assistant — who you are, what you sell, how you want to be talked to.</p>
+    <p>You don't write it from scratch. Claude will interview you and build it. Your job is to answer the questions honestly.</p>
+
+    <p>Open the desktop app and tell Claude:</p>
+    <div class="prompt-block">I want to set up a CLAUDE.md file that you'll read every time we talk. I'm an independent insurance agent. I sell Medicare Advantage, private health insurance, business insurance, hospital indemnity, and life insurance. Ask me questions about my business, how I work, my communication style, and what I want help with. Then build the CLAUDE.md based on my answers and save it.</div>
+
+    <h3>Make sure it covers</h3>
+    <ul>
+      <li>Your name, business name, location</li>
+      <li>Products you sell (Medicare Advantage, private, business, hospital indemnity, life)</li>
+      <li>Who you're targeting (seniors turning 65, families, small business owners)</li>
+      <li>Your FMO / parent agency relationship</li>
+      <li>Where you are in the business (just launched, building first clients)</li>
+      <li>Your tools: Gmail, Google Calendar, Calendly, Zoom, Facebook, Instagram</li>
+      <li>Decision rules: <em>always ask before sending any email or taking external action</em></li>
+    </ul>
+
+    <div class="tip">
+      <p><strong>Iterate, don't perfect.</strong> Your first CLAUDE.md doesn't need to be complete. Anytime you correct Claude on something, ask it to update CLAUDE.md so it remembers next time. The file gets sharper every week.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number">Step 3</div>
+    <h2>Build Your Knowledge Vault (Obsidian)</h2>
+    <p>Your vault is Claude's long-term memory. It's a folder of plain text files on your computer. The richer it gets, the better Claude performs on every email, client question, and product comparison.</p>
+
+    <h3>Install Obsidian (free)</h3>
+    <p>Go to <strong>obsidian.md</strong>, download the Windows version, install it.</p>
+
+    <h3>Have Claude set up the vault</h3>
+    <div class="prompt-block">I want to set up an Obsidian vault as my knowledge base for my insurance practice. Suggest a folder structure — things like carriers, products, clients, leads, compliance, scripts, and SOPs. Create the folders and tell me how to open the vault in Obsidian.</div>
+
+    <h3>Feed it what you have</h3>
+    <ul>
+      <li>Carrier product sheets and benefit summaries</li>
+      <li>FMO onboarding materials and training docs</li>
+      <li>Scripts or objection handlers you've been given</li>
+      <li>Medicare guidelines for your state</li>
+      <li>Notes from any training you've done</li>
+    </ul>
+
+    <div class="prompt-block">I want to fill my vault with everything I already have. I'll point you at files and documents. Read them, ask clarifying questions, and save what's useful into the right folders.</div>
+
+    <div class="tip">
+      <p><strong>The compounding part:</strong> Every conversation you have with Claude adds to the vault. After a few weeks Claude knows your product lines better than most people you'd hire.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number">Step 4</div>
+    <h2>Connect Google Workspace</h2>
+    <p>This is the biggest unlock. Gmail, Google Calendar, Google Sheets, and Google Docs all connect at once. Claude can read your inbox, draft emails in your voice, manage your calendar, and run your pipeline tracker — without you switching apps.</p>
+
+    <div class="prompt-block">I want to connect my Google Workspace account so you can read my Gmail, send emails on my behalf, manage my Google Calendar, and read and edit my Google Sheets and Docs. Walk me through setup step by step — I'm not technical. Make sure we publish the OAuth app to Production status so the connection doesn't expire every 7 days.</div>
+
+    <div class="tip">
+      <p><strong>Why "Production" status matters:</strong> New connections default to "Testing" mode, which breaks every 7 days. Publishing to Production means you set it up once and it stays. Always do this step.</p>
+    </div>
+
+    <h3>Test it</h3>
+    <div class="prompt-block">Show me my last 5 emails. What's the most recent one I haven't replied to?</div>
+    <p>If that works, you're good.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-number">Step 5</div>
+    <h2>Connect Your Other Tools</h2>
+
+    <h3>Calendly</h3>
+    <p>Connecting Calendly means Claude can see your bookings and automatically draft follow-up messages for anyone who schedules a call.</p>
+    <div class="prompt-block">I use Calendly for client scheduling. I want to connect it so you can see my upcoming bookings and help me send confirmation and follow-up messages to anyone who books a call. Walk me through setting up the Calendly MCP connector.</div>
+
+    <h3>Zoom</h3>
+    <p>Connecting Zoom lets Claude schedule meetings, pull upcoming call details, and draft follow-ups after conversations.</p>
+    <div class="prompt-block">I use Zoom for client and prospect calls. I want to connect it so you can see my scheduled meetings, help me prep for calls, and draft follow-up messages after meetings. Walk me through setting up the Zoom MCP connector.</div>
+
+    <h3>Todoist — Recommended New Tool</h3>
+    <p>You don't have a task manager yet. Add one now, before you get too far in. <strong>Todoist</strong> is free, works great on Windows and Android, and connects directly to Claude. This becomes your daily task list, your client checklists, and a lightweight layer on top of your pipeline.</p>
+    <p>Sign up free at <strong>todoist.com</strong>, download the Windows app and Android app, then:</p>
+    <div class="prompt-block">I just set up Todoist as my task manager. I want to connect it so you can add tasks, check what's due, and help me stay on top of follow-ups. Walk me through setting up the Todoist MCP connector. My API token is in Todoist under Settings → Integrations → Developer.</div>
+
+    <h3>Your FMO CRM</h3>
+    <p>Your FMO gave you a CRM — let's find out what it can do before we rely on it or replace it.</p>
+    <div class="prompt-block">My FMO gave me access to a CRM called [name of CRM]. I haven't set it up yet. Can you look it up and tell me: does it have an API or any MCP connector? What are my options for connecting it to you? If it doesn't connect well, should I use it alongside my Google Sheet pipeline or instead of it?</div>
+
+    <h3>Facebook &amp; Instagram</h3>
+    <p>There's no direct connector for Meta platforms — but the workflow is simple: Claude writes it, you copy and post it.</p>
+    <div class="prompt-block">I want to post consistently on Facebook and Instagram to build my audience as an insurance agent. I'm targeting seniors and families in [your area]. Help me build a 30-day content calendar with post ideas. Write each caption in my voice — conversational, not salesy, focused on being genuinely helpful.</div>
+    <div class="tip">
+      <p><strong>Batch it.</strong> Pick one morning per week, sit with Claude for 30 minutes, and write 3–4 posts at once. Schedule them in Meta Business Suite so they go out automatically.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number">Step 6</div>
+    <h2>Build Your AI Sales Engine</h2>
+    <p>This is the payoff. One sheet holds every prospect. Every morning Claude emails you a prioritized list with follow-up messages already drafted — ready to send.</p>
+
+    <p>The system has three pieces:</p>
+    <ul>
+      <li><strong>A Google Sheet</strong> — every prospect, lead, and referral source in one place</li>
+      <li><strong>A daily brief</strong> — each morning Claude emails you who to contact today with messages pre-written in your voice</li>
+      <li><strong>A logging workflow</strong> — after any call, tell Claude what happened and it updates everything</li>
+    </ul>
+
+    <div class="prompt-block">I want to build an AI sales engine for my insurance practice. My contacts include: potential Medicare clients (seniors turning 65 or already on Medicare), families looking for private health coverage, small business owners needing business or group coverage, and referral sources like doctors' offices, financial advisors, senior centers, and community contacts.
+
+Before you build anything, ask me about my current process — how I'm tracking contacts today, what falls through the cracks, and what my pipeline stages look like.
+
+Then build: (1) a Google Sheet with one row per contact — name, type, product interest, stage, last touch date, next touch date, warmth score 1–5, notes; (2) a daily brief that runs each morning, reads the sheet, and emails me a prioritized list with follow-up messages already drafted in Gmail in my voice; (3) a logging prompt I can use after any call — I describe what happened, you update the sheet and queue the next follow-up.
+
+Start by asking me the questions. Then build it step by step.</div>
+
+    <div class="tip">
+      <p><strong>Why this works when other systems don't:</strong> Most CRMs require you to log in, remember to check, and prep your own outreach. This system pushes to you. You wake up and the brief is already in your inbox.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-number">Step 7</div>
+    <h2>Build Your Policy &amp; Renewal Tracker</h2>
+    <p>Renewals are your second income stream. Most new agents don't build a system for this early — and lose clients at year one without realizing it.</p>
+
+    <div class="prompt-block">I want to build a policy and renewal tracker in Google Sheets. I need to track: client name, product type, carrier, effective date, renewal date, annual premium, my estimated commission, and current status. I want a monthly email alert telling me which clients are coming up for renewal in the next 60 days, and a renewal check-in script I can use on those calls.</div>
+
+    <div class="tip">
+      <p><strong>On accounting:</strong> When you're ready for a bookkeeping tool, QuickBooks connects directly to Claude. For now, add a "commission received" column to your renewal tracker and use that to track income until you're ready to graduate.</p>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="step">
+    <div class="step-number">The Real Skill</div>
+    <h2>Just Tell Claude What You Want</h2>
+    <p>The five steps above are concrete tasks. The most valuable thing you'll learn is the meta-skill: how to use Claude for everything else that comes up after this.</p>
+
+    <ol>
+      <li style="margin-bottom:14px"><strong style="color:#e0e0e0">Notice what's costing you time or attention.</strong> You don't need to know what's possible. Just notice the friction.</li>
+      <li style="margin-bottom:14px"><strong style="color:#e0e0e0">Get roughly clear on what you want instead.</strong> Not perfectly clear. Rough. "I want a follow-up sequence." "I want a comparison guide."</li>
+      <li style="margin-bottom:14px"><strong style="color:#e0e0e0">Tell Claude in plain English and ask for a plan first.</strong> Don't ask it to build yet. Ask it to plan. Read the plan. Push back. Then say go.</li>
+      <li style="margin-bottom:14px"><strong style="color:#e0e0e0">Iterate as it builds.</strong> First version won't be perfect. Use it, tell Claude what's off, fix it. Three rounds and you'll have something better than most off-the-shelf tools.</li>
+      <li style="margin-bottom:14px"><strong style="color:#e0e0e0">Save what's worth keeping.</strong> Ask Claude to save useful things as "skills" so you can run them again with one command.</li>
+    </ol>
+  </div>
+
+  <div class="prompts-section">
+    <h2>Prompts to Steal</h2>
+    <p>Drop these into Claude as-is. Edit to taste.</p>
+
+    <div class="prompt-category">Daily / Sales</div>
+    <div class="prompt-block">Pull every lead from my sales sheet that's due for follow-up today. Draft each follow-up message in my voice into Gmail drafts and tell me who to prioritize.</div>
+    <div class="prompt-block">I just got off a Zoom call with [Name]. Here's what we talked about: [notes]. Update my sales sheet, log the call, draft a follow-up in my voice, and add a reminder to my Todoist.</div>
+    <div class="prompt-block">Someone just booked a call through my Calendly. Their name is [Name]. Look them up in my sales sheet, tell me what I know about them, and draft a pre-call confirmation email.</div>
+    <div class="prompt-block">I want to reach out to seniors turning 65 in my area. Help me draft a phone script and a short letter they'll actually read.</div>
+
+    <div class="prompt-category">Product / Sales Support</div>
+    <div class="prompt-block">A prospect asked me to explain the difference between Medicare Advantage and Medicare Supplement. Build me a simple one-page comparison guide I can send them.</div>
+    <div class="prompt-block">I have a small business owner interested in group health coverage. Help me build a discovery call script — what questions do I ask, what do I listen for, how do I frame the recommendation.</div>
+    <div class="prompt-block">Build me an objection handling guide for the top 5 objections I'll hear on Medicare Advantage calls.</div>
+    <div class="prompt-block">A prospect said they already have coverage through their spouse's employer. What should I say?</div>
+
+    <div class="prompt-category">Social Media</div>
+    <div class="prompt-block">Write me 5 Facebook posts for this week. My audience is seniors and families in [city]. Keep it conversational and helpful — not salesy. Suggest the topics.</div>
+    <div class="prompt-block">Write me a personal intro post for Instagram — why I got into insurance, who I help, and what makes me different. Sound like me, not like an ad.</div>
+    <div class="prompt-block">It's Medicare Annual Enrollment Period. Write me a 5-post series explaining what AEP is, what people should review, and how to reach me.</div>
+
+    <div class="prompt-category">Operations / Referrals</div>
+    <div class="prompt-block">Which referral sources have sent me the most leads this quarter? Pull from my sales sheet and give me a ranked list so I know where to invest my relationship time.</div>
+    <div class="prompt-block">I have [X] clients coming up for renewal in the next 60 days. Draft personalized check-in messages for each one in my voice.</div>
+    <div class="prompt-block">Help me write a short letter introducing myself to doctors' offices in my area, asking to be a referral resource for their Medicare-eligible patients.</div>
+    <div class="prompt-block">Build me an onboarding checklist for a new Medicare Advantage client — what do I send, what do I explain, what do I do after enrollment.</div>
+  </div>
+
+  <div class="section" style="margin-top: 72px;">
+    <h2>Your 10 / 30 / 90 Day Path</h2>
+    <div class="roadmap">
+      <div class="roadmap-row">
+        <div class="roadmap-cell header">Timeline</div>
+        <div class="roadmap-cell header">What to Build</div>
+        <div class="roadmap-cell header">What to Expect</div>
+      </div>
+      <div class="roadmap-row">
+        <div class="roadmap-cell timeline">Days 1–10</div>
+        <div class="roadmap-cell">Install + CLAUDE.md + Google Workspace + outreach scripts</div>
+        <div class="roadmap-cell">First 50 prospects contacted, voice and messaging locked in</div>
+      </div>
+      <div class="roadmap-row">
+        <div class="roadmap-cell timeline">Days 11–30</div>
+        <div class="roadmap-cell">Calendly + Zoom + Todoist connected, sales engine live</div>
+        <div class="roadmap-cell">Daily brief running, pipeline tracked, first clients enrolled</div>
+      </div>
+      <div class="roadmap-row">
+        <div class="roadmap-cell timeline">Days 31–90</div>
+        <div class="roadmap-cell">Renewal tracker + social content engine + referral system</div>
+        <div class="roadmap-cell">Book of business growing, referral loop starting, 10–20 clients</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p style="margin-bottom: 8px;"><a href="https://entrepreneurawaken.com">ENTREPRENEUR AWAKEN</a></p>
+    <p>Built for Trish's Insurance Practice</p>
+  </footer>
+
+</body>
+</html>
