@@ -487,6 +487,14 @@
 
   <p><strong>Gotcha 4 — Git installer "access denied" error</strong><br/>
   If Git installation fails with an access denied error on <code>C:\Program Files\</code>, the installer needs admin rights. Find the downloaded installer file in your Downloads folder, <strong>right-click it</strong>, and choose <strong>"Run as administrator"</strong>. Click Yes when Windows asks for permission, then run through the installer again. If you need a fresh copy, download from <a href="https://git-scm.com/download/win" target="_blank">git-scm.com/download/win</a> — then right-click → Run as administrator.</p>
+
+  <p><strong>Gotcha 5 — "Git is required" even after installing Git</strong><br/>
+  Open a fresh PowerShell and run <code>git --version</code> to diagnose:</p>
+  <ul>
+    <li><strong>Shows a version number but Claude still complains:</strong> Git is installed but not on the PATH Claude can see. Paste this into PowerShell and hit Enter, then close and reopen everything:<br/>
+    <code>[System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Program Files\Git\bin", "User")</code></li>
+    <li><strong>"git is not recognized":</strong> Git didn't get added to PATH during install. Reinstall from <a href="https://git-scm.com/download/win" target="_blank">git-scm.com/download/win</a> — on the PATH options screen, select <strong>"Git from the command line and also from 3rd-party software"</strong> (the middle option). This is the step that wires Git up so all apps can find it.</li>
+  </ul>
 </div>
 
 <!-- STEP 2 -->
